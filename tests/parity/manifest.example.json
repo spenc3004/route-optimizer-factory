@@ -1,0 +1,27 @@
+{
+  "cases": [
+    {
+      "name": "cc-myers",
+      "mode": "score",
+      "args": {
+        "category": "Home Services",
+        "preset": "Home SRVCS Acquisition (With History + Suppression)",
+        "filePath": "cc-myers/input.xlsx",
+        "clientName": "C&C Myers",
+        "originalName": "input.xlsx",
+        "weights": {
+          "$ Income": 0.05, "$ Home Value": 0.05, "Owner Occupied": 0.15,
+          "Median Year Structure Built": 0.03, "House Count": 0.10,
+          "House Penetration%": 0.05, "$ Total Spend": 0.07, "Total Visits": 0.03,
+          "$ Average Order": 0.05, "Distance": 0.07,
+          "Weighted Penetration Score": 0.15, "Customer Profile Match Score": 0.20
+        },
+        "failFilters": { "min_income": 40000, "max_distance": 50, "min_owner": 70, "max_penetration": 11.0 },
+        "profile": { "mode": "Fixed Standard", "idealValues": {} }
+      },
+      "baselineResult": "cc-myers/baseline.result.json",
+      "baselineXlsx": "cc-myers/baseline.ranked.xlsx",
+      "floatTolerance": 1e-6
+    }
+  ]
+}

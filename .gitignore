@@ -1,0 +1,43 @@
+# Local environment
+.env
+.env.local
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Logs and local runtime files
+*.log
+*.pid
+
+# OS / editor noise
+.DS_Store
+.idea/
+
+# Parity client data is PROPRIETARY — never commit it. The synthetic fixture and
+# docs ARE tracked; everything else dropped under fixtures/ is ignored.
+/tests/parity/fixtures/*
+!/tests/parity/fixtures/README.md
+!/tests/parity/fixtures/synthetic/
+/tests/parity/fixtures/.out/
+/tests/parity/manifest.json

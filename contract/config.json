@@ -1,0 +1,319 @@
+{
+  "contractVersion": "ro-config-2026-06-25",
+  "categories": [
+    {
+      "name": "Home Services",
+      "presets": [
+        "Manual",
+        "Home SRVCS Acquisition (No History)",
+        "Home SRVCS Acquisition (With History + Suppression)",
+        "Home SRVCS Acquisition (With History, No Suppression)"
+      ],
+      "features": {
+        "use_wps": true,
+        "use_cpms": true,
+        "use_vds": false,
+        "profile_modes": [
+          "Dynamic (from file)",
+          "Fixed Standard"
+        ]
+      },
+      "failFilters": [
+        {
+          "key": "min_income",
+          "label": "Min Household Income ($)",
+          "required_column": "$ Income",
+          "threshold": 40000,
+          "enabled": true
+        },
+        {
+          "key": "max_income",
+          "label": "Max Household Income ($)",
+          "required_column": "$ Income",
+          "threshold": 250000,
+          "enabled": false
+        },
+        {
+          "key": "max_distance",
+          "label": "Max Distance (miles)",
+          "required_column": "Distance",
+          "threshold": 50,
+          "enabled": true
+        },
+        {
+          "key": "min_owner",
+          "label": "Min Owner Occupied (%)",
+          "required_column": "Owner Occupied",
+          "threshold": 70,
+          "enabled": true
+        },
+        {
+          "key": "max_penetration",
+          "label": "Max Penetration (%)",
+          "required_column": "House Penetration%",
+          "threshold": 11.0,
+          "enabled": true
+        }
+      ],
+      "ideals": {
+        "$ Income": "Ideal Income",
+        "$ Home Value": "Ideal Home Value",
+        "Owner Occupied": "Ideal Owner Occupied",
+        "Median Year Structure Built": "Ideal Median Year Built",
+        "Distance": "Ideal Distance"
+      },
+      "drivers": [
+        "House Count",
+        "House Penetration%",
+        "$ Total Spend",
+        "Total Visits",
+        "$ Average Order"
+      ],
+      "profileDefaults": {
+        "ideal_income": 65000,
+        "ideal_home_value": 180000,
+        "ideal_owner_occupied": 75,
+        "ideal_median_year_built": 1995,
+        "ideal_distance": 25
+      },
+      "requiredColumnsBase": [
+        "$ Income",
+        "$ Home Value",
+        "Owner Occupied",
+        "Median Year Structure Built",
+        "Distance"
+      ],
+      "requiredColumnsByPreset": {
+        "Manual": [],
+        "Home SRVCS Acquisition (No History)": [],
+        "Home SRVCS Acquisition (With History + Suppression)": [
+          "House Count",
+          "House Penetration%",
+          "$ Total Spend",
+          "Total Visits",
+          "$ Average Order",
+          "Selected"
+        ],
+        "Home SRVCS Acquisition (With History, No Suppression)": [
+          "House Count",
+          "House Penetration%",
+          "$ Total Spend",
+          "Total Visits",
+          "$ Average Order",
+          "Selected"
+        ]
+      },
+      "defaultWeightsByPreset": {
+        "Manual": {
+          "$ Income": 0.15,
+          "$ Home Value": 0.1,
+          "Owner Occupied": 0.1,
+          "Median Year Structure Built": 0.05,
+          "House Count": 0.1,
+          "House Penetration%": 0.05,
+          "$ Total Spend": 0.1,
+          "Total Visits": 0.05,
+          "$ Average Order": 0.05,
+          "Distance": 0.05,
+          "Weighted Penetration Score": 0.1,
+          "Customer Profile Match Score": 0.1
+        },
+        "Home SRVCS Acquisition (No History)": {
+          "$ Income": 0.25,
+          "$ Home Value": 0.15,
+          "Owner Occupied": 0.3,
+          "Median Year Structure Built": 0.05,
+          "House Count": 0.0,
+          "House Penetration%": 0.0,
+          "$ Total Spend": 0.0,
+          "Total Visits": 0.0,
+          "$ Average Order": 0.0,
+          "Distance": 0.25,
+          "Weighted Penetration Score": 0.0,
+          "Customer Profile Match Score": 0.0
+        },
+        "Home SRVCS Acquisition (With History + Suppression)": {
+          "$ Income": 0.05,
+          "$ Home Value": 0.05,
+          "Owner Occupied": 0.15,
+          "Median Year Structure Built": 0.03,
+          "House Count": 0.1,
+          "House Penetration%": 0.05,
+          "$ Total Spend": 0.07,
+          "Total Visits": 0.03,
+          "$ Average Order": 0.05,
+          "Distance": 0.07,
+          "Weighted Penetration Score": 0.15,
+          "Customer Profile Match Score": 0.2
+        },
+        "Home SRVCS Acquisition (With History, No Suppression)": {
+          "$ Income": 0.05,
+          "$ Home Value": 0.05,
+          "Owner Occupied": 0.1,
+          "Median Year Structure Built": 0.02,
+          "House Count": 0.13,
+          "House Penetration%": 0.13,
+          "$ Total Spend": 0.13,
+          "Total Visits": 0.07,
+          "$ Average Order": 0.1,
+          "Distance": 0.07,
+          "Weighted Penetration Score": 0.05,
+          "Customer Profile Match Score": 0.1
+        }
+      },
+      "fixedStandardOnlyPresets": [
+        "Home SRVCS Acquisition (No History)"
+      ]
+    },
+    {
+      "name": "Automotive",
+      "presets": [
+        "Manual",
+        "Auto Acquisition (No History)",
+        "Auto Acquisition (With History + No Suppression)",
+        "Auto Acquisition (With History + Suppression)"
+      ],
+      "features": {
+        "use_wps": true,
+        "use_cpms": true,
+        "use_vds": true,
+        "profile_modes": [
+          "Dynamic (from file)",
+          "Fixed Standard"
+        ]
+      },
+      "failFilters": [
+        {
+          "key": "min_income",
+          "label": "Min Household Income ($)",
+          "required_column": "$ Income",
+          "threshold": 40000,
+          "enabled": true
+        },
+        {
+          "key": "max_income",
+          "label": "Max Household Income ($)",
+          "required_column": "$ Income",
+          "threshold": 250000,
+          "enabled": true
+        },
+        {
+          "key": "max_distance",
+          "label": "Max Distance (miles)",
+          "required_column": "Distance",
+          "threshold": 50,
+          "enabled": true
+        },
+        {
+          "key": "min_owner",
+          "label": "Min Owner Occupied (%)",
+          "required_column": "Owner Occupied",
+          "threshold": 70,
+          "enabled": false
+        },
+        {
+          "key": "max_penetration",
+          "label": "Max Penetration (%)",
+          "required_column": "House Penetration%",
+          "threshold": 11.0,
+          "enabled": true
+        }
+      ],
+      "ideals": {
+        "$ Income": "Ideal Income",
+        "$ Home Value": "Ideal Home Value",
+        "Owner Occupied": "Ideal Owner Occupied",
+        "Distance": "Ideal Distance",
+        "Vehicle Density Score": "Ideal Vehicle Density Score",
+        "% Children": "Ideal % Children"
+      },
+      "drivers": [
+        "House Count",
+        "House Penetration%",
+        "$ Total Spend",
+        "Total Visits",
+        "$ Average Order"
+      ],
+      "profileDefaults": {
+        "ideal_income": 65000,
+        "ideal_home_value": 180000,
+        "ideal_owner_occupied": 75,
+        "ideal_distance": 25,
+        "ideal_children": 0.2,
+        "ideal_vehicle_density_score": 2.5
+      },
+      "requiredColumnsBase": [
+        "Distance",
+        "$ Income",
+        "Owner Occupied",
+        "5+ Vehicles",
+        "% 4 Vehicles",
+        "% 3 Vehicles",
+        "% 2 Vehicles",
+        "% 1 Vehicle",
+        "% No Vehicle"
+      ],
+      "requiredColumnsByPreset": {
+        "Manual": [],
+        "Auto Acquisition (No History)": [],
+        "Auto Acquisition (With History + No Suppression)": [
+          "House Count",
+          "House Penetration%",
+          "$ Total Spend",
+          "Total Visits",
+          "$ Average Order",
+          "Selected"
+        ],
+        "Auto Acquisition (With History + Suppression)": [
+          "House Count",
+          "House Penetration%",
+          "$ Total Spend",
+          "Total Visits",
+          "$ Average Order",
+          "Selected"
+        ]
+      },
+      "defaultWeightsByPreset": {
+        "Manual": {
+          "Distance": 0.35,
+          "$ Income": 0.25,
+          "Vehicle Density Score": 0.4
+        },
+        "Auto Acquisition (No History)": {
+          "Distance": 0.35,
+          "$ Income": 0.25,
+          "Vehicle Density Score": 0.4,
+          "Weighted Penetration Score": 0.0,
+          "Customer Profile Match Score": 0.0
+        },
+        "Auto Acquisition (With History + No Suppression)": {
+          "House Count": 0.23,
+          "Distance": 0.15,
+          "$ Total Spend": 0.17,
+          "$ Average Order": 0.11,
+          "$ Income": 0.07,
+          "House Penetration%": 0.06,
+          "Total Visits": 0.06,
+          "Vehicle Density Score": 0.15,
+          "Customer Profile Match Score": 0.0
+        },
+        "Auto Acquisition (With History + Suppression)": {
+          "House Count": 0.1,
+          "Distance": 0.18,
+          "$ Total Spend": 0.07,
+          "$ Average Order": 0.05,
+          "$ Income": 0.06,
+          "House Penetration%": 0.03,
+          "Total Visits": 0.04,
+          "Vehicle Density Score": 0.12,
+          "Customer Profile Match Score": 0.2,
+          "Weighted Penetration Score": 0.15
+        }
+      },
+      "fixedStandardOnlyPresets": [
+        "Auto Acquisition (No History)"
+      ]
+    }
+  ],
+  "sourceHash": "sha256:1a7a5a8b22c4d413"
+}
