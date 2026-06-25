@@ -1,0 +1,19 @@
+{
+  "pairs": [
+    {
+      "name": "C&C Myers",
+      "original": "cc-myers/original.xlsx",
+      "current": "cc-myers/current.xlsx"
+    },
+    {
+      "name": "4Front Energy",
+      "original": "4front-energy/original.xlsx",
+      "current": "4front-energy/current.xlsx"
+    },
+    {
+      "name": "CBA Broomfield",
+      "original": "cba-broomfield/original.xlsx",
+      "current": "cba-broomfield/current.xlsx"
+    }
+  ]
+}

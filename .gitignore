@@ -41,3 +41,4 @@ dist/
 !/tests/parity/fixtures/synthetic/
 /tests/parity/fixtures/.out/
 /tests/parity/manifest.json
+/tests/parity/outputs_manifest.json
