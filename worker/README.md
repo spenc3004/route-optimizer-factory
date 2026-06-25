@@ -1,20 +1,41 @@
-# worker/ — queue consumer (Phase 4)
+# worker/ — queue consumer
 
-Not implemented yet. This is the poll/claim/run/report loop that turns the
-extracted optimizer into a queue-driven service, modeled on `nm-factory-new`.
+The poll/claim/run/report loop that turns the optimizer into a queue-driven
+service, modeled on `nm-factory-new`.
 
-Planned modules (see `route-optimizer-decoupling-plan.md` §10):
+## Flow
 
-- `run.py` — main loop: claim a `dbo.ro_jobs` row (READPAST/UPDLOCK/ROWLOCK +
-  lease), read `input` + `jobSpec.json` from EFS, run `optimizer/cli.py` as a
-  subprocess, write `result.json` + `ranked.xlsx` (+ `roi.xlsx`) to EFS, then
-  `POST /ro/progress` to the backend.
-- `storage.py` — EFS read/write keyed by `jobId` under `route_optimizer/`.
-- `callback.py` — `POST /ro/progress` client with the shared-secret bearer header
-  (`RO_WORKER_SECRET`); see plan §7a.
+```
+loop:
+  claim a dbo.ro_jobs row   (db.py: READPAST/UPDLOCK/ROWLOCK + lease, plan §15)
+  POST RUNNING              (callback.py -> backend POST /ro/progress)
+  resolve input from EFS    (storage.py: route_optimizer/<jobId>/)
+  run optimizer/cli.py      (runner.py: subprocess per job, score|roi)
+  write result.json         (storage.py)   # cli writes ranked.xlsx/roi.xlsx itself
+  POST COMPLETED | FAILED   (callback.py)
+```
 
-Configuration is documented in `../.env.example`.
+Status transitions (RUNNING/COMPLETED/FAILED) go through the backend webhook,
+which owns the `ro_jobs` status update + realtime emission — the worker only
+*claims* via SQL. cli.py runs as a subprocess per job for parity + process
+isolation (a pandas blowup dies in the child, not the loop).
 
-Until this lands, the backend continues to exec its own copy of `optimizer/`
-in-process (strangler); this repo's `optimizer/` is independently runnable and
-parity-tested via `../tests/`.
+## Modules
+
+- `settings.py` — env config (`load_settings()`).
+- `db.py` — the atomic claim query (`Db.claim_next_job`).
+- `storage.py` — EFS read/write by jobId; stages a parent's run-parts for ROI.
+- `runner.py` — build cli args + parse cli output (pure) + `run_cli` (subprocess).
+- `callback.py` — `POST /ro/progress` with the shared-secret bearer header.
+- `run.py` — the loop (`main()`), the Docker `CMD`.
+
+## Run locally
+
+```bash
+cp ../.env.example ../.env   # fill RO_* + EFS_PATH + RO_WORKER_SECRET (matching the backend)
+pip install -r requirements.txt -r ../optimizer/requirements.txt
+python run.py
+```
+
+ROI jobs (`Kind='roi'`) read the parent's `ranked.pkl` + run-parts; the worker
+stages them into the ROI job's dir before running `cli.py --mode roi`.
