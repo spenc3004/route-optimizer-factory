@@ -3,17 +3,23 @@
     {
       "name": "C&C Myers",
       "original": "cc-myers/original.xlsx",
-      "current": "cc-myers/current.xlsx"
+      "current": "cc-myers/current.xlsx",
+      "input": "cc-myers/input.xlsx",
+      "category": "Home Services"
     },
     {
       "name": "4Front Energy",
       "original": "4front-energy/original.xlsx",
-      "current": "4front-energy/current.xlsx"
+      "current": "4front-energy/current.xlsx",
+      "input": "4front-energy/input.xlsx",
+      "category": "Home Services"
     },
     {
       "name": "CBA Broomfield",
       "original": "cba-broomfield/original.xlsx",
-      "current": "cba-broomfield/current.xlsx"
+      "current": "cba-broomfield/current.xlsx",
+      "input": "cba-broomfield/input.xlsx",
+      "category": "Automotive"
     }
   ]
 }

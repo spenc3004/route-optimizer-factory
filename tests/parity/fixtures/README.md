@@ -59,3 +59,22 @@ with identical per-label values.
 
 **Validated 2026-06-25:** 4Front Energy, C&C Myers, CBA Broomfield — Ranked
 Geocodes byte-identical (incl. C&C Myers Composite Score post-`_effective_weights`).
+
+## End-to-end: raw input → original output
+
+When you also have the **raw penetration-report input**, `recover_and_verify.py`
+runs the extracted `cli.py` on it and proves it reproduces the **original**
+Composite Scores. The exact UI jobSpec isn't recorded in the output, so it
+brute-forces the small config space (runnable preset × available driver, with
+preset-default weights, Dynamic profile) and reports the combo that matches.
+
+Add `input` + `category` to each pair in `outputs_manifest.json`, then:
+
+```bash
+.venv/bin/python tests/parity/recover_and_verify.py
+```
+
+**Validated 2026-06-25:** all three reproduce the original to machine epsilon
+(max|Δ| 5.55e-17 over 2,300 geocodes); recovered config = `Manual` preset +
+`House Count` dynamic driver. A sensitivity check confirmed wrong drivers diverge
+(0.003–0.01), so the match is genuine.
