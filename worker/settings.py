@@ -11,6 +11,11 @@ except ImportError:  # pragma: no cover - dotenv optional at runtime
     def load_dotenv():
         return False
 
+# Fixed structural subdir under the shared EFS root (EFS_PATH). Hardcoded (not env)
+# so the worker and backend can never drift to different folders; only EFS_PATH is
+# configurable. Must match the backend's storageSubdir.
+STORAGE_SUBDIR = "route_optimizer"
+
 
 @dataclass(frozen=True)
 class Settings:
@@ -47,7 +52,7 @@ def load_settings() -> Settings:
         db_user=_require("RO_SQL_USER"),
         db_password=_require("RO_SQL_PASSWORD"),
         efs_path=_require("EFS_PATH"),
-        storage_subdir=os.getenv("RO_STORAGE_SUBDIR", "route_optimizer").strip(),
+        storage_subdir=STORAGE_SUBDIR,
         worker_id=os.getenv("RO_WORKER_ID", "ro-factory-local").strip(),
         poll_interval_seconds=int(os.getenv("RO_POLL_INTERVAL_SECONDS", "5")),
         lease_seconds=int(os.getenv("RO_LEASE_SECONDS", "300")),
