@@ -11,11 +11,15 @@ See `route-optimizer-decoupling-plan.md` and `route-optimizer-phase0-contracts.m
 
 ## Status
 
-- **Phase 1 (current): optimizer extracted + runnable + parity-ready.** The
-  backend still execs its own copy of `optimizer/` (strangler) until the worker
-  is proven.
-- **Phase 4 (later): the queue worker** (`worker/`) — poll `dbo.ro_jobs`, read
-  input from EFS, run `cli.py`, write artifacts, POST status to the backend.
+Complete and the sole home of the optimizer. The backend (`team-dashboard-backend-v3`)
+no longer contains any Python — it is a Node control plane that creates jobs in
+`dbo.ro_jobs`; this repo's `worker/` polls that table, runs `cli.py`, writes
+artifacts to shared storage, and posts status back. Output parity with the
+original tool is verified (`tests/parity/`).
+
+Run the worker with `python worker/run.py` (see `worker/README.md`). Deployment
+runs it as a long-lived process on a host that can reach the SQL DB + the shared
+EFS mount; configuration is in `.env` (see `.env.example`).
 
 ## Layout
 
@@ -28,11 +32,11 @@ optimizer/            # the engine — COPIED VERBATIM from the backend. Do NOT 
 contract/             # published, versioned config contract for the backend
   generate_config.py  #   regenerates config.json from CATEGORY_CONFIG
   config.json         #   the artifact the backend caches to serve /config + validate (Node)
-worker/               # Phase 4: the queue consumer (stub for now)
+worker/               # the queue consumer (poll ro_jobs -> run cli.py -> post status)
 tests/
   test_smoke.py       # standalone runnability checks on synthetic data (CI-safe)
+  test_worker.py      # worker pure-helper + storage tests
   parity/             # diff cli.py output vs committed client baselines
-Dockerfile            # container runtime (optimizer deps; worker CMD lands in Phase 4)
 ```
 
 ## The CLI contract

@@ -27,7 +27,7 @@ isolation (a pandas blowup dies in the child, not the loop).
 - `storage.py` — EFS read/write by jobId; stages a parent's run-parts for ROI.
 - `runner.py` — build cli args + parse cli output (pure) + `run_cli` (subprocess).
 - `callback.py` — `POST /ro/progress` with the shared-secret bearer header.
-- `run.py` — the loop (`main()`), the Docker `CMD`.
+- `run.py` — the loop (`main()`); the process entrypoint (`python worker/run.py`).
 
 ## Run locally
 
