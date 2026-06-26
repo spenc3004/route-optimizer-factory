@@ -55,7 +55,7 @@ back in a `warnings[]` array. This contract is **frozen** and versioned by
 
 ```bash
 python3 -m venv .venv
-.venv/bin/pip install -r optimizer/requirements.txt -r requirements-dev.txt
+.venv/bin/pip install -r requirements.txt
 
 # regenerate the published config contract (after any CATEGORY_CONFIG change)
 .venv/bin/python contract/generate_config.py

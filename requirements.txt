@@ -1,0 +1,12 @@
+# Aggregate requirements for route-optimizer-factory.
+# Install everything (engine + worker + dev/test) with:
+#   pip install -r requirements.txt
+#
+# The engine and worker keep their own pinned files as the source of truth;
+# this file pulls them together so there's a single install command.
+-r optimizer/requirements.txt
+-r worker/requirements.txt
+
+# Dev / test tooling
+pytest==8.3.4
+# openpyxl is already pinned in optimizer/requirements.txt
